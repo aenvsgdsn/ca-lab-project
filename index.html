@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8fafc">
+  <title>G19 · Accumulator CPU Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Accumulator CPU Lab home">
+        <span class="brand-mark" aria-hidden="true">μ</span>
+        <span>ARCH<span class="brand-light">LAB</span></span>
+      </a>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <h1 id="page-title">A tiny CPU.<br><span>One step at a time.</span></h1>
+          <p class="intro">See how instructions move through a processor. Edit the program, then follow the program counter and accumulator as each instruction runs.</p>
+        </div>
+        <div class="cycle-card" aria-label="Instruction cycle: Fetch, Decode, Execute">
+          <div class="cycle-top"><span>INSTRUCTION CYCLE</span></div>
+          <div class="cycle-flow"><span>FETCH</span><i></i><span>DECODE</span><i></i><span>EXECUTE</span></div>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="CPU simulator workspace">
+        <div class="section-heading">
+          <h2>Processor workspace</h2>
+        </div>
+
+        <div class="main-grid">
+          <section class="panel memory-panel" aria-labelledby="memory-title">
+            <div class="panel-heading">
+              <div class="panel-title-wrap"><span class="panel-icon memory-icon" aria-hidden="true">▦</span><div><h3 id="memory-title">Program memory</h3><p>Choose an instruction and edit its value.</p></div></div>
+              <span class="count-badge">8 ADDRESSES</span>
+            </div>
+            <div class="memory-table-wrap">
+              <table class="memory-table">
+                <thead><tr><th scope="col">ADDRESS</th><th scope="col">INSTRUCTION</th><th scope="col">VALUE</th><th scope="col">ROLE</th></tr></thead>
+                <tbody>
+                  <tr class="program-row active-row"><th scope="row"><span class="address-chip">00</span></th><td><select aria-label="Instruction at address 0"><option selected>LOAD</option><option>ADD</option><option>SUB</option><option>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 0" type="number" value="5"></td><td><span class="role-tag instruction-role">INSTRUCTION</span></td></tr>
+                  <tr class="program-row"><th scope="row"><span class="address-chip">01</span></th><td><select aria-label="Instruction at address 1"><option>LOAD</option><option selected>ADD</option><option>SUB</option><option>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 1" type="number" value="3"></td><td><span class="role-tag instruction-role">INSTRUCTION</span></td></tr>
+                  <tr class="program-row"><th scope="row"><span class="address-chip">02</span></th><td><select aria-label="Instruction at address 2"><option>LOAD</option><option>ADD</option><option>SUB</option><option selected>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 2" type="number" value="7"></td><td><span class="role-tag instruction-role">INSTRUCTION</span></td></tr>
+                  <tr class="program-row"><th scope="row"><span class="address-chip">03</span></th><td><select aria-label="Instruction at address 3"><option>LOAD</option><option>ADD</option><option selected>SUB</option><option>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 3" type="number" value="2"></td><td><span class="role-tag instruction-role">INSTRUCTION</span></td></tr>
+                  <tr class="program-row"><th scope="row"><span class="address-chip">04</span></th><td><select aria-label="Instruction at address 4"><option>LOAD</option><option>ADD</option><option>SUB</option><option>STORE</option><option selected>HALT</option></select></td><td><input aria-label="Value at address 4" type="number" value="0"></td><td><span class="role-tag instruction-role">INSTRUCTION</span></td></tr>
+                  <tr class="program-row empty-row"><th scope="row"><span class="address-chip">05</span></th><td><select aria-label="Instruction at address 5"><option selected>LOAD</option><option>ADD</option><option>SUB</option><option>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 5" type="number" value="0"></td><td><span class="role-tag empty-role">AVAILABLE</span></td></tr>
+                  <tr class="program-row empty-row"><th scope="row"><span class="address-chip">06</span></th><td><select aria-label="Instruction at address 6"><option selected>LOAD</option><option>ADD</option><option>SUB</option><option>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 6" type="number" value="0"></td><td><span class="role-tag empty-role">AVAILABLE</span></td></tr>
+                  <tr class="program-row empty-row"><th scope="row"><span class="address-chip">07</span></th><td><select aria-label="Instruction at address 7"><option selected>LOAD</option><option>ADD</option><option>SUB</option><option>STORE</option><option>HALT</option></select></td><td><input aria-label="Value at address 7" type="number" value="0"></td><td><span class="role-tag empty-role">AVAILABLE</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="memory-foot"><span class="lock-icon" aria-hidden="true">✳</span> Ready example: <strong>LOAD 5 → ADD 3 → STORE 7 → SUB 2 → HALT</strong></div>
+          </section>
+
+          <aside class="panel cpu-panel" aria-labelledby="cpu-title">
+            <div class="panel-heading cpu-heading"><div class="panel-title-wrap"><span class="panel-icon cpu-icon" aria-hidden="true">⌘</span><div><h3 id="cpu-title">CPU state</h3><p>Live register values</p></div></div><span class="cpu-status"><span class="live-dot"></span> READY</span></div>
+            <div class="registers">
+              <div class="register-card pc-card"><div class="register-label"><span>PROGRAM COUNTER</span><span class="register-symbol">PC</span></div><div class="register-value" id="pc-value">00</div><div class="register-note">Next address to read</div></div>
+              <div class="register-card acc-card"><div class="register-label"><span>ACCUMULATOR</span><span class="register-symbol">ACC</span></div><div class="register-value" id="acc-value">0</div><div class="register-note">Current working value</div></div>
+            </div>
+            <div class="control-row"><button class="step-button" id="step-button" type="button"><span class="play-icon" aria-hidden="true">▶</span> Step <span class="button-hint">1 INSTRUCTION</span></button><button class="reset-button" id="reset-button" type="button"><span aria-hidden="true">↺</span> Reset</button></div>
+            <p class="status-message" id="status-message" role="status" aria-live="polite">Ready to run. Press Step to execute the current instruction.</p>
+            <div class="legend"><span><i class="legend-swatch pc-swatch"></i>Program counter</span><span><i class="legend-swatch acc-swatch"></i>Accumulator</span></div>
+          </aside>
+        </div>
+
+        <section class="panel history-panel" aria-labelledby="history-title">
+          <div class="panel-heading history-heading"><div class="panel-title-wrap"><span class="panel-icon history-icon" aria-hidden="true">≋</span><div><h3 id="history-title">Execution history</h3><p>Each row records one completed instruction.</p></div></div><span class="count-badge" id="step-count">0 STEPS</span></div>
+          <div class="history-table-wrap"><table class="history-table"><thead><tr><th scope="col">STEP</th><th scope="col">PC</th><th scope="col">INSTRUCTION</th><th scope="col">ACC AFTER</th><th scope="col">STATUS</th></tr></thead><tbody id="history-body"><tr class="empty-history"><td colspan="5"><span class="empty-history-icon">↗</span><span>Your instruction history will appear here.</span><span class="empty-hint">Press <b>Step</b> to begin</span></td></tr></tbody></table></div>
+        </section>
+      </section>
+    </main>
+
+    <footer><div class="footer-brand"><span class="footer-mark">μ</span> G19 <span class="footer-sep">·</span> SIMPLE ACCUMULATOR CPU SIMULATOR</div><div class="team">ABDUL AHAD <span>243</span><i></i> IBRAHIM ASIF MALIK <span>245</span><i></i> HARIS AQEEL <span>248</span></div></footer>
+  </div>
+</body>
+</html>
